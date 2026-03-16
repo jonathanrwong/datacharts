@@ -60,6 +60,8 @@ function moveTT(e) {
 }
 function hideTT() { tooltip.style("opacity", 0); }
 
+// ════════════════════════════════════════════════════════════════════════════
+// fetching data from json
 async function poll() {
   try {
     const res = await fetch(DATA_FILE + "?t=" + Date.now());
@@ -82,7 +84,8 @@ async function poll() {
     }
   } catch(e) {}
 }
-
+// ════════════════════════════════════════════════════════════════════════════
+// hierarchial data
 function buildHierarchy(data) {
   const hasParents = data.some(d => d.parent);
   if (!hasParents) return d3.hierarchy({ name: "Total", children: data }).sum(d => d.value).sort((a,b) => b.value - a.value);
@@ -91,8 +94,8 @@ function buildHierarchy(data) {
   const allNodes = [{ name: "Total", parent: null }, ...missing.map(p => ({ name: p, parent: "Total" })), ...data.map(d => ({ ...d, parent: d.parent || "Total" }))];
   return d3.stratify().id(d => d.name).parentId(d => d.parent)(allNodes).sum(d => d.value).sort((a,b) => b.value - a.value);
 }
-
 // ════════════════════════════════════════════════════════════════════════════
+// chart_01 Treemap
 function drawTreemap(json, W, H) {
   svg.selectAll("*").remove(); svg.attr("width", W).attr("height", H);
   const root = buildHierarchy(json.data);
@@ -113,8 +116,8 @@ function drawTreemap(json, W, H) {
   });
   exportCanvas(json.config, {root, W, H}, "treemap");
 }
-
 // ════════════════════════════════════════════════════════════════════════════
+// chart_02 Circle Packing
 function drawCirclePack(json, W, H) {
   svg.selectAll("*").remove(); svg.attr("width", W).attr("height", H);
   const root = buildHierarchy(json.data);
@@ -177,8 +180,8 @@ function drawCirclePack(json, W, H) {
 
   exportCanvas(json.config, {root, W, H}, "pack");
 }
-
 // ════════════════════════════════════════════════════════════════════════════
+// chart_02 Circle Packing
 function drawBarChart(json, W, H) {
   svg.selectAll("*").remove(); svg.attr("width", W).attr("height", H);
 
@@ -237,8 +240,8 @@ function drawBarChart(json, W, H) {
 
   exportCanvas(json.config, {rows, x, margin, BAR_H, GROUP_H, w, W, H}, "bar");
 }
-
 // ════════════════════════════════════════════════════════════════════════════
+// chart_03 Donut 
 function drawDonut(json, W, H) {
   svg.selectAll("*").remove(); svg.attr("width", W).attr("height", H);
   const cx = W/2, cy = H/2;
@@ -369,8 +372,8 @@ function drawDonut(json, W, H) {
 
   exportCanvas(json.config, {json, W, H, outerR, hasParents}, "pie");
 }
-
 // ════════════════════════════════════════════════════════════════════════════
+// chart_04 Sun Burst
 function drawSunburst(json, W, H) {
   svg.selectAll("*").remove(); svg.attr("width", W).attr("height", H);
   const root = buildHierarchy(json.data);
@@ -464,8 +467,8 @@ function drawSunburst(json, W, H) {
 
   exportCanvas(json.config, {root, W, H, radius}, "sunburst");
 }
-
 // ════════════════════════════════════════════════════════════════════════════
+// chart_05 Sankey
 function drawSankey(json, W, H) {
   svg.selectAll("*").remove(); svg.attr("width", W).attr("height", H);
   const nodeByName = new Map();
@@ -508,8 +511,7 @@ function drawSankey(json, W, H) {
 }
 
 // ════════════════════════════════════════════════════════════════════════════
-//  UNIVERSAL RHINO EXPORT
-// ════════════════════════════════════════════════════════════════════════════
+// graphics export
 function exportCanvas(config, layout, type) {
   const exportW = config.w || 500;
   const scale = exportW / Math.max(layout.W, 1);
@@ -540,7 +542,7 @@ function exportCanvas(config, layout, type) {
   }
   else if (type === "pack") {
     d3.pack().size([drawW, drawH]).padding(3*scale)(layout.root);
-    const MIN_R_NAME = Math.max(drawW, drawH) * 0.08;  // ~8% of canvas = label threshold
+    const MIN_R_NAME = Math.max(drawW, drawH) * 0.08;  //
     const MIN_R_VAL  = MIN_R_NAME * 1.4;
     // Pass 1: all circles
     layout.root.descendants().slice(1).forEach(d => {
@@ -590,20 +592,19 @@ function exportCanvas(config, layout, type) {
         .sort((a,b)=>b.value-a.value);
       const innerPie = d3.pie().value(d=>d.value).sort(null).padAngle(0.025)(groupList);
 
-      // Inner arcs (parents)
+      // inner arcs (parents)
       innerPie.forEach(s => {
         const sa = s.startAngle - Math.PI/2, ea = s.endAngle - Math.PI/2;
         ctx.beginPath(); ctx.arc(0,0,midR-3,sa,ea); ctx.arc(0,0,innerR,ea,sa,true); ctx.closePath();
         ctx.fillStyle = color(s.data.name); ctx.fill();
         ctx.strokeStyle = '#fff'; ctx.lineWidth = 2*scale; ctx.stroke();
-        // Label — only for large segments
         if (s.endAngle - s.startAngle > 0.4) {
           const mid = (s.startAngle+s.endAngle)/2, r = (innerR+midR-3)/2;
           ctx.fillStyle='#fff'; ctx.font=`bold ${11*fs}px sans-serif`; ctx.textAlign='center';
           ctx.fillText(s.data.name, Math.sin(mid)*r, -Math.cos(mid)*r+4*scale);
         }
       });
-      // Outer arcs (children)
+      // outer arcs (children)
       innerPie.forEach(pSlice => {
         const children = pSlice.data.children;
         const childPie = d3.pie().value(d=>d.value).sort(null)
@@ -628,7 +629,7 @@ function exportCanvas(config, layout, type) {
         ctx.strokeStyle='#fff'; ctx.lineWidth=2*scale; ctx.stroke();
       });
     }
-    // Center text
+    // center text styling
     ctx.fillStyle='#111'; ctx.font=`bold ${14*fs}px sans-serif`; ctx.textAlign='center';
     ctx.fillText("Total", 0, -4*scale);
     ctx.fillStyle='#666'; ctx.font=`${12*fs}px sans-serif`;
@@ -651,7 +652,7 @@ function exportCanvas(config, layout, type) {
       ctx.globalAlpha = d.children ? 0.6 : 0.9; ctx.fill(); ctx.globalAlpha = 1;
       ctx.strokeStyle = '#fff'; ctx.lineWidth = scale; ctx.stroke();
       const span = (d.x1 - d.x0) * (d.y0 + d.y1) / 2 * r;
-      if (span > 38) {  // absolute px threshold — not scale-dependent
+      if (span > 38) { 
         const angle = (d.x0 + d.x1) / 2, midR = (d.y0 + d.y1) / 2 * r;
         ctx.save();
         ctx.rotate(angle - Math.PI / 2); ctx.translate(midR, 0);
