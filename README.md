@@ -8,7 +8,7 @@
   <img src="assets\data_muncher.png" alt="Data Muncher" width="800"/>
 </p>
 
-**Modern web data visualisation, live inside Rhino.**
+**Modern web data visualization, live inside Rhino.**
 
 Built at AEC Tech Hackathon 2026 by a ridiculously talented group of people from across the industry - architects, engineers, computational designers - who all shared the same frustration: Grasshopper gives you the data, but it's challenging to look at it.
 
@@ -16,7 +16,7 @@ Built at AEC Tech Hackathon 2026 by a ridiculously talented group of people from
 
 ## The idea
 
-Existing GH plugins stop at panels and basic charts. Data Muncher goes further - it bridges your parametric geometry with D3.js, one of the most powerful data visualisation libraries on the web, and renders the result as a live dashboard directly inside Rhino's viewport.
+Existing GH plugins stop at panels and basic charts. Data Muncher goes further - it bridges your parametric geometry with D3.js, one of the most powerful data visualization libraries on the web, and renders the result as a live dashboard directly inside Rhino's viewport.
 
 Move a slider. Watch the treemap reflow. No tab switching. No spreadsheets. No server.
 
