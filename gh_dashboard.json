@@ -1,86 +1,86 @@
 {
-  "updated": "2026-03-16 23:55:51",
+  "updated": "2026-03-19 00:37:41",
   "config": {
     "type": "sunburst",
     "title": "Grasshopper Dashboard",
     "subtitle": "Live Data Feed",
     "w": 553,
-    "font_scale": 1.0
+    "font_scale": 1.5
   },
   "data": [
     {
       "name": "Zone-A",
-      "value": 72.78937577420635,
+      "value": 15435.513212780676,
       "parent": "Residential"
     },
     {
       "name": "Zone-B",
-      "value": 29.597822751242546,
-      "parent": "Commercial"
-    },
-    {
-      "name": "Zone-C",
-      "value": 86.57692772368956,
-      "parent": "Industrial"
-    },
-    {
-      "name": "Zone-D",
-      "value": 53.73651594282527,
+      "value": 3157.649150960053,
       "parent": "Residential"
     },
     {
+      "name": "Zone-C",
+      "value": 11531.702218118702,
+      "parent": "Residential"
+    },
+    {
+      "name": "Zone-D",
+      "value": 1677.1238729588295,
+      "parent": "Commercial"
+    },
+    {
       "name": "Zone-E",
-      "value": 9.683719644235275,
+      "value": 1677.1238729588288,
       "parent": "Commercial"
     },
     {
       "name": "Zone-F",
-      "value": 28.325958391660436,
-      "parent": "Industrial"
-    },
-    {
-      "name": "Zone-G",
-      "value": 11.138768652231525,
-      "parent": "Residential"
-    },
-    {
-      "name": "Zone-H",
-      "value": 516.8679940586153,
+      "value": 3369.5526242764345,
       "parent": "Commercial"
     },
     {
+      "name": "Zone-G",
+      "value": 4693.61805592544,
+      "parent": "Industrial"
+    },
+    {
+      "name": "Zone-H",
+      "value": 1677.1238729588295,
+      "parent": "Industrial"
+    },
+    {
       "name": "Zone-I",
-      "value": 2685.7619123185887,
+      "value": 15187.281322856237,
       "parent": "Industrial"
     },
     {
       "name": "Zone-J",
-      "value": 704.8412388707366,
+      "value": 11835.78812905818,
       "parent": "Residential"
     },
     {
       "name": "Zone-K",
-      "value": 3553.9164286707073,
-      "parent": "Commercial"
-    },
-    {
-      "name": "Zone-L",
-      "value": 1241.254674825094,
-      "parent": "Industrial"
-    },
-    {
-      "name": "Zone-M",
-      "value": 774.6751516353144,
+      "value": 3919.6093570687062,
       "parent": "Residential"
     },
     {
-      "name": "Zone-N",
-      "value": 752.1010080694416,
+      "name": "Zone-L",
+      "value": 1145.6158552777251,
       "parent": "Commercial"
     },
     {
+      "name": "Zone-M",
+      "value": 577.8747746681768,
+      "parent": "Commercial"
+    },
+    {
+      "name": "Zone-N",
+      "value": 577.8747746681768,
+      "parent": "Industrial"
+    },
+    {
       "name": "Zone-O",
-      "value": 3553.9164286707014,
+      "value": 3183.547063126649,
       "parent": "Industrial"
     }
   ]

@@ -11,6 +11,7 @@ INPUTS:
   enable     - Item bool
   x, y       - Item int
   w          - Item int
+  font_scale - Item float
 """
 
 import json, os, datetime, threading, traceback
@@ -22,7 +23,7 @@ import System.IO
 import System
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
-SERVE_DIR   = r"C:\Users\Dell\Documents\GitHub\data_muncher"
+SERVE_DIR   = r"C:\Users\Hesham.Shawqy\OneDrive - Grimshaw Architects\Documents\GitHub\data_muncher"
 OUTPUT_JSON = os.path.join(SERVE_DIR, "gh_dashboard.json")
 
 # pick a free port once per session, reuse it across GH solves
@@ -81,6 +82,7 @@ try:
         _form         = ef.Form()
         _form.Title   = "GH Dashboard"
         _form.Size    = ed.Size(1100, 750)
+        _form.Topmost = True
         _form.Content = _wv
 
         # inject the port after every page load so JS knows where to POST
